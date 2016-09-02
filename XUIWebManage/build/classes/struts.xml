@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.multipart.maxSize" value="100000000" /><!-- 
+		配置上传文件的拦截大小 -->
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<!-- 定义了一个名为loginInterceptor的拦截器,过滤登录Action -->
+			<interceptor name="loginInterceptor" class="com.xui.interceptor.LoginInterceptor" />
+		</interceptors>
+		<global-results>
+			<!-- 定义一个全局的结果集-->
+			<result name="login">/login.jsp</result>
+		</global-results>
+		<action name="loginAction" class="com.xui.action.LoginAction">
+			<result name="success">/uploading.html</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="registerAction" class="com.xui.action.RegisterAction">
+			<result name="success">/login.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="uploadFileAction" class="com.xui.action.UploadZipAction">
+			<!-- 配置拦截器 -->
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="loginInterceptor" />
+			<result name="success">/success.html</result>
+			<result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

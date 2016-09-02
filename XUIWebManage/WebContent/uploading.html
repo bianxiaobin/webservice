@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>上传文件</title>
+	<link rel="stylesheet" type="text/css" href="jquery/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="jquery/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="jquery/demo.css">
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>上传文件</h2>
+	<div style="margin:20px 0;"></div>
+	<div class="easyui-panel" title="文件上传" style="width:400px;padding:30px 70px 50px 70px">
+		<div style="margin-bottom:20px">
+			<div>选择文件:</div>
+			<form action="uploadFileAction.action" method="post" enctype="multipart/form-data">
+				<input class="easyui-filebox" name="uploadFile" data-options="prompt:'选择文件'" style="width:100%">
+				<br><br>
+				<input type="submit" value="提交"/>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

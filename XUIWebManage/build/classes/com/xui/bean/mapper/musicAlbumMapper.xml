@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper：指定一个唯一的namespace，namespace的值习惯上设置成包名+xml文件名，
+			保证namespace的值是唯一的 -->
+<mapper namespace="com.xui.bean.mapper.musicAlbumMapper">
+	<!-- select : 查询标签 ； insert　：　插入标签
+		 id ： 表示需要映射的方法
+		 parameterType ： 参数类型（可以是基本数据类型，或映射的类的类型）
+		 resultType ： 返回的结果类型（可以是基本数据类型，或Object类型）-->
+	<select id="getMusicAlbumId" resultType="int">
+		select max(music_album_id) as id from music_album;
+	</select>
+	<insert id="insertMusicAlbum" parameterType="com.xui.bean.MusicAlbum">
+		insert into music_album (music_album_name,
+		music_album_lable,
+		music_album_desc,
+		db_createtime,
+		db_updatetime,
+		db_delete) 
+		values(#{music_album_name},
+		#{music_album_lable},
+		#{music_album_desc},
+		now(),
+		null,
+		0)
+	</insert>
+	<select id="getMusicAlbumCountByName" parameterType="string" resultType="int">
+		select count(music_album_id) from music_album where music_album_name=#{music_album_name}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
