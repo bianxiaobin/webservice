@@ -5,10 +5,14 @@ import java.util.Random;
 
 public class Demo {
 	public static void main(String[] args) {
-		System.out.println(createRandomDate());
-		System.out.println(createRandomDate());
-		System.out.println(createRandomDate());
-		System.out.println(createRandomDate());
+		int i = 0;
+		while(true){
+			if(i > 10000){
+				break;
+			}
+			System.out.println(createRandomDate());
+			i++;
+		}
 	}
 	private static String createRandomDate(){
 		StringBuffer sb = new StringBuffer();
@@ -16,9 +20,7 @@ public class Demo {
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		sb.append(df.format(date)+"-");
 		Random random = new Random();
-		sb.append(random.nextInt(100));
-		sb.append(random.nextInt(100));
-		sb.append(random.nextInt(100));
+		sb.append(1000+random.nextInt(9000));
 		return sb.toString();
 	}
 }

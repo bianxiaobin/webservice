@@ -114,9 +114,7 @@ public class UploadZipAction extends ActionSupport{
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		sb.append(df.format(date)+"-");
 		Random random = new Random();
-		sb.append(random.nextInt(100));
-		sb.append(random.nextInt(100));
-		sb.append(random.nextInt(100));
+		sb.append(1000+random.nextInt(9000));
 		return sb.toString();
 	}
 }
