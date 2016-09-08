@@ -25,11 +25,11 @@ public class LoginAction extends ActionSupport {
 		name = configMap.get(ConfigUtil.LOGINNAME);
 		pwd = configMap.get(ConfigUtil.LOGINPWD);
 		if(StringUtils.isEmpty(loginName)){
-			this.addFieldError("errorMessage", "ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡");
+			this.addFieldError("errorMessage", "ç”¨æˆ·åä¸èƒ½ä¸ºç©ºï¼");
 			return ERROR;
 		}
 		if(StringUtils.isEmpty(loginPwd)){
-			this.addFieldError("errorMessage", "ÃÜÂë²»ÄÜÎª¿Õ£¡");
+			this.addFieldError("errorMessage", "å¯†ç ä¸èƒ½ä¸ºç©ºï¼");
 			return ERROR;
 		}
 		if(loginName.equals(name) && loginPwd.equals(pwd)){
@@ -38,7 +38,7 @@ public class LoginAction extends ActionSupport {
 			map.put("userName", loginName);
 			return SUCCESS;
 		}else{
-			this.addFieldError("errorMessage", "ÃÜÂëÓëÓÃ»§²»Æ¥Åä£¡");
+			this.addFieldError("errorMessage", "å¯†ç ä¸ç”¨æˆ·ä¸åŒ¹é…ï¼");
 			return ERROR;
 		}
 	}

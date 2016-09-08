@@ -8,7 +8,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xui.utils.LogUtils;
 /***
- * 用来拦截key的，检查key是否正确
+ * 鐢ㄦ潵鎷︽埅key鐨勶紝妫�鏌ey鏄惁姝ｇ‘
  * @author 17310
  *
  */

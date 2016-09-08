@@ -24,13 +24,13 @@ public class IndexAction extends ActionSupport {
 		Calendar cal = Calendar.getInstance();
 		int nowYear = cal.get(Calendar.YEAR);
 		String keyPath = configMap.get(ConfigUtil.KEYPATH)+nowYear+ConfigUtil.KEYFILE;
-		mdKey = Utils.getKey(keyPath, nowDate);//´ÓÅäÖÃÎÄ¼şÖĞ»ñµÃµÄkey
+		mdKey = Utils.getKey(keyPath, nowDate);//ä»é…ç½®æ–‡ä»¶ä¸­è·å¾—çš„key
 		LogUtils.log("key:"+key);
 	}
 	@Override
 	public String execute() throws Exception {
 		if(StringUtils.isEmpty(key)){
-			this.addFieldError("errorMessage", "ÕâÀïÊ²Ã´¶¼Ã»ÓĞ(¡Ño¡Ñ)Å¶£¡");
+			this.addFieldError("errorMessage", "è¿™é‡Œä»€ä¹ˆéƒ½æ²¡æœ‰(âŠ™oâŠ™)å“¦ï¼");
 			return ERROR;
 		}
 		if(key.equals(mdKey)){
@@ -39,7 +39,7 @@ public class IndexAction extends ActionSupport {
 			map.put("key", mdKey);
 			return SUCCESS;
 		}else{
-			this.addFieldError("errorMessage", "(¡Ñ©n¡Ñ)b£¡£¡£¡");
+			this.addFieldError("errorMessage", "(âŠ™ï¹âŠ™)bï¼ï¼ï¼");
 			return ERROR;
 		}
 	}

@@ -13,7 +13,7 @@ public class MusicDB {
 	int maxId = 0;
 	SqlSession session = DBHelp.getSqlSession();
 	/**
-	 * Èç¹ûmusicName³¤¶È´óÓÚ100¾Í»Ø¹ö£¬²¢·µ»Øtrue£¬·ñÔòfalse£»
+	 * å¦‚æœmusicNameé•¿åº¦å¤§äº100å°±å›æ»šï¼Œå¹¶è¿”å›trueï¼Œå¦åˆ™falseï¼›
 	 * @param music
 	 * @return
 	 */
@@ -24,7 +24,7 @@ public class MusicDB {
 		music.setMusic_album_id(maxId);
 		music.setMusic_name(fileName);
 		music.setMusic_size(musicFile.length());
-		LogUtils.log(fileName+"£º´óĞ¡-¡·"+musicFile.length());
+		LogUtils.log(fileName+"ï¼šå¤§å°-ã€‹"+musicFile.length());
 		String mapper = "com.xui.bean.mapper.musicMapper.insertMusic";
 		session.insert(mapper, music);
 		if(music.getMusic_name().length() > 100){
@@ -35,7 +35,7 @@ public class MusicDB {
 		return false;
 	}
 	/**
-	 * Èç¹ûalbum_name³¤¶È´óÓÚ50¾Í»Ø¹ö£¬²¢·µ»Øtrue£¬·ñÔòfalse£»
+	 * å¦‚æœalbum_nameé•¿åº¦å¤§äº50å°±å›æ»šï¼Œå¹¶è¿”å›trueï¼Œå¦åˆ™falseï¼›
 	 * @param music
 	 * @return
 	 */
@@ -60,8 +60,8 @@ public class MusicDB {
 		return maxId;
 	}
 	/**
-	 * µ±²åÈëÊı¾İºó£¬¼°Ê±»ñµÃ×î´óµÄÖ÷¼üID
-	 * ·µ»ØĞ¡ÓÚ0ËµÃ÷Ã»ÓĞ²éµ½½á¹û
+	 * å½“æ’å…¥æ•°æ®åï¼ŒåŠæ—¶è·å¾—æœ€å¤§çš„ä¸»é”®ID
+	 * è¿”å›å°äº0è¯´æ˜æ²¡æœ‰æŸ¥åˆ°ç»“æœ
 	 * @return
 	 */
 	public int getMusicAlbumMaxId(){

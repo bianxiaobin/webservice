@@ -51,7 +51,7 @@ public class Utils {
 	}
 
 	/**
-	 * ½âÑ¹ËõÎÄ¼şµ½µ±Ç°ÎÄ¼ş
+	 * è§£å‹ç¼©æ–‡ä»¶åˆ°å½“å‰æ–‡ä»¶
 	 */
 	public static void uncompressZip(File file){
 		try {
@@ -64,10 +64,10 @@ public class Utils {
 		} 
 	}
 	/**
-	 * ¼ì²é½âÑ¹ËõºóµÄÎÄ¼şÊÇ·ñ°üº¬musicÓëlogoÎÄ¼ş
-	 * afterZipFile : ½âÑ¹ºóµÄÎÄ¼ş
-	 * newMusicPath : ´æ·ÅÒôÀÖµÄĞÂÂ·¾¶
-	 * newLogopath : ´æ·ÅlogoµÄĞÂÂ·¾¶
+	 * æ£€æŸ¥è§£å‹ç¼©åçš„æ–‡ä»¶æ˜¯å¦åŒ…å«musicä¸logoæ–‡ä»¶
+	 * afterZipFile : è§£å‹åçš„æ–‡ä»¶
+	 * newMusicPath : å­˜æ”¾éŸ³ä¹çš„æ–°è·¯å¾„
+	 * newLogopath : å­˜æ”¾logoçš„æ–°è·¯å¾„
 	 */
 	public static List<String> checkAndCopyFile(File afterZipFile,String newMusicPath,String newLogoPath){
 		MusicDB db = new MusicDB();
@@ -76,11 +76,11 @@ public class Utils {
 		File[] musicFile = null;
 		File[] logoFile = null;
 		if(!afterZipFile.exists()){
-			result = "Çë±£³ÖÑ¹ËõÎÄ¼şÓëÎÄ¼ş¼ĞÃû³ÆÏàÍ¬";
+			result = "è¯·ä¿æŒå‹ç¼©æ–‡ä»¶ä¸æ–‡ä»¶å¤¹åç§°ç›¸åŒ";
 			list.add(result);
 			return list;
 		}
-		//¹ıÂËmusicÓëlogoµÄÎÄ¼ş¼Ğ
+		//è¿‡æ»¤musicä¸logoçš„æ–‡ä»¶å¤¹
 		File[] files = afterZipFile.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
@@ -89,14 +89,14 @@ public class Utils {
 				return false;
 			}
 		});
-		//Ñ¹ËõºóµÄÎÄ¼şÖĞÃ»ÓĞÎÄ¼ş¼Ğ»òÖ»ÓĞÒ»¸öÎÄ¼ş¼Ğ·µ»Ø
+		//å‹ç¼©åçš„æ–‡ä»¶ä¸­æ²¡æœ‰æ–‡ä»¶å¤¹æˆ–åªæœ‰ä¸€ä¸ªæ–‡ä»¶å¤¹è¿”å›
 		if(files==null || files.length <= 1){
-			result = "Ã»ÓĞÕÒµ½ÎÄ¼ş»òÉÏ´«µÄÑ¹ËõÎÄ¼ş²»°üº¬musicÓëLogoÎÄ¼ş¼Ğ£¡";
+			result = "æ²¡æœ‰æ‰¾åˆ°æ–‡ä»¶æˆ–ä¸Šä¼ çš„å‹ç¼©æ–‡ä»¶ä¸åŒ…å«musicä¸Logoæ–‡ä»¶å¤¹ï¼";
 			LogUtils.log(result);
 			list.add(result);
 			return list;
 		}
-		//¹ıÂËmp3ÎÄ¼şÓëÍ¼Æ¬ÎÄ¼ş±£´æµ½musicFileÓëlogoFile¼¯ºÏÖĞ
+		//è¿‡æ»¤mp3æ–‡ä»¶ä¸å›¾ç‰‡æ–‡ä»¶ä¿å­˜åˆ°musicFileä¸logoFileé›†åˆä¸­
 		for(File f : files){
 			if(f.getName().equals("music")){
 				musicFile = f.listFiles(new FileFilter() {
@@ -122,47 +122,47 @@ public class Utils {
 				});
 			}
 		}
-		//¼ì²émusicÎÄ¼ş¼ĞÖĞÊÇÓĞmp3ÎÄ¼ş´æÔÚ
+		//æ£€æŸ¥musicæ–‡ä»¶å¤¹ä¸­æ˜¯æœ‰mp3æ–‡ä»¶å­˜åœ¨
 		if(musicFile == null || musicFile.length == 0){
-			result = "ÎÄ¼şÉÏ´«´íÎó£¬Çë¼ì²émusicÎÄ¼ş¼ĞÊÇ·ñÓĞmp3ÎÄ¼ş,»òÄãµÄÎÄ¼ş×ÓÄ¿Â¼Ì«¶à";
+			result = "æ–‡ä»¶ä¸Šä¼ é”™è¯¯ï¼Œè¯·æ£€æŸ¥musicæ–‡ä»¶å¤¹æ˜¯å¦æœ‰mp3æ–‡ä»¶,æˆ–ä½ çš„æ–‡ä»¶å­ç›®å½•å¤ªå¤š";
 			LogUtils.log(result);
 			list.add(result);
 			return list;
 		}
-		//¼ì²élogoÎÄ¼ş¼ĞÖĞÊÇ·ñÓĞÍ¼Æ¬ÎÄ¼ş´æÔÚ
+		//æ£€æŸ¥logoæ–‡ä»¶å¤¹ä¸­æ˜¯å¦æœ‰å›¾ç‰‡æ–‡ä»¶å­˜åœ¨
 		if(logoFile == null || logoFile.length == 0){
-			result = "ÎÄ¼şÉÏ´«´íÎó£¬Çë¼ì²élogoÎÄ¼ş¼ĞÊÇ·ñÓĞÍ¼Æ¬ÎÄ¼ş,»òÄãµÄÎÄ¼ş×ÓÄ¿Â¼Ì«¶à";
+			result = "æ–‡ä»¶ä¸Šä¼ é”™è¯¯ï¼Œè¯·æ£€æŸ¥logoæ–‡ä»¶å¤¹æ˜¯å¦æœ‰å›¾ç‰‡æ–‡ä»¶,æˆ–ä½ çš„æ–‡ä»¶å­ç›®å½•å¤ªå¤š";
 			LogUtils.log(result);
 			list.add(result);
 			return list;
 		}
-		//½«×¨¼­±£´æµ½×¨¼­±íÖĞ,Èç¹û»Ø¹ö¾ÍÍË³ö
+		//å°†ä¸“è¾‘ä¿å­˜åˆ°ä¸“è¾‘è¡¨ä¸­,å¦‚æœå›æ»šå°±é€€å‡º
 		boolean albumResult = db.insertMusicAlbum(afterZipFile);
 		if(albumResult){
-			result = "×¨¼­ÃûÌ«³¤";
+			result = "ä¸“è¾‘åå¤ªé•¿";
 			LogUtils.log(result);
 			list.add(result);
 			return list;
 		}
-		//¸´ÖÆlogoÎÄ¼şµ½Ö¸¶¨µÄÎÄ¼ş¼ĞÖĞ
+		//å¤åˆ¶logoæ–‡ä»¶åˆ°æŒ‡å®šçš„æ–‡ä»¶å¤¹ä¸­
 		for(File f : logoFile){
-			LogUtils.log("copyµÄlogoÎÄ¼şÃû£º"+f.getName());
+			LogUtils.log("copyçš„logoæ–‡ä»¶åï¼š"+f.getName());
 			copyFile(f, newLogoPath+db.getMaxId());
 		}
 		for(File f : musicFile){
-			LogUtils.log("copyµÄmusicÎÄ¼şÃû£º"+f.getName());
+			LogUtils.log("copyçš„musicæ–‡ä»¶åï¼š"+f.getName());
 			if(f.getName().contains("-")){
 				boolean musicResult = db.insertMusic(f);
-				//Èç¹û»Ø¹ö¾Í²»Ìá½»
+				//å¦‚æœå›æ»šå°±ä¸æäº¤
 				if(musicResult){
-					result = f.getName()+"£¬Ãû×ÖÌ«³¤";;
-					LogUtils.log("copyµÄmusicÎÄ¼şÃûÌ«³¤£º"+f.getName());
+					result = f.getName()+"ï¼Œåå­—å¤ªé•¿";;
+					LogUtils.log("copyçš„musicæ–‡ä»¶åå¤ªé•¿ï¼š"+f.getName());
 					list.add(result);
 				}else{
 					copyFile(f, newMusicPath);
 				}
 			}else{
-				result = f.getName()+"£¬²»°üº¬-";
+				result = f.getName()+"ï¼Œä¸åŒ…å«-";
 				list.add(result);
 			}
 		}
@@ -170,14 +170,14 @@ public class Utils {
 	}
 	
 	/***
-	 * ½²ÎÄ¼şmusicÓëlogoÎÄ¼ş¼ĞÖĞµÄÎÄ¼şcopyµ½¶ÔÓ¦µÄÎÄ¼ş¼ĞÖĞ
+	 * è®²æ–‡ä»¶musicä¸logoæ–‡ä»¶å¤¹ä¸­çš„æ–‡ä»¶copyåˆ°å¯¹åº”çš„æ–‡ä»¶å¤¹ä¸­
 	 * @param args
 	 */
 	private static void copyFile(File file , String newPath){
 		File copyFile = new File(newPath,file.getName());
 		System.out.println(copyFile.getPath());
 		try{
-			//ÏÈ¼ì²é¸¸ÎÄ¼şÄ¿Â¼ÊÇ·ñ´æÔÚ£¬²»´æÔÚ¾Í´´½¨¸¸ÎÄ¼şÄ¿Â¼È»ºóÔÚ´´½¨ÎÄ¼ş
+			//å…ˆæ£€æŸ¥çˆ¶æ–‡ä»¶ç›®å½•æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨å°±åˆ›å»ºçˆ¶æ–‡ä»¶ç›®å½•ç„¶ååœ¨åˆ›å»ºæ–‡ä»¶
 			if(!copyFile.getParentFile().exists()){
 				if(copyFile.getParentFile().mkdirs()){
 					copyFile.createNewFile();
@@ -200,21 +200,21 @@ public class Utils {
 		File file = new File(path);
 		String nowKey = "";
 		try{
-			//ÅĞ¶Ï¸¸ÎÄ¼ş¼ĞÂ·¾¶ÊÇ·ñ´æÔÚ£¬²»´æÔÚ¾Í´´½¨
+			//åˆ¤æ–­çˆ¶æ–‡ä»¶å¤¹è·¯å¾„æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨å°±åˆ›å»º
 			if(!file.getParentFile().exists()){
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 			}
-			//ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ£¬²»´æÔÚ¾Í´´½¨£¡
+			//åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨å°±åˆ›å»ºï¼
 			if(!file.exists()){
-				LogUtils.log(file.getName()+"ÎÄ¼ş²»´æÔÚ£¡ÇëÏÈÖ´ĞĞcreateKey.action");
+				LogUtils.log(file.getName()+"æ–‡ä»¶ä¸å­˜åœ¨ï¼è¯·å…ˆæ‰§è¡ŒcreateKey.action");
 				return nowKey;
 			}
 		}catch(IOException ex){
 			ex.printStackTrace();
 		}
 		try {
-			//ÏÈ´ÓÎÄ¼şÖĞ¶Á
+			//å…ˆä»æ–‡ä»¶ä¸­è¯»
 			InputStream is = new FileInputStream(file);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "GBK"));
 			String line = "";
@@ -240,12 +240,12 @@ public class Utils {
 	}
 	public static void createYearKey(File file){
 		try{
-			//ÅĞ¶Ï¸¸ÎÄ¼ş¼ĞÂ·¾¶ÊÇ·ñ´æÔÚ£¬²»´æÔÚ¾Í´´½¨
+			//åˆ¤æ–­çˆ¶æ–‡ä»¶å¤¹è·¯å¾„æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨å°±åˆ›å»º
 			if(!file.getParentFile().exists()){
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 			}
-			//ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ£¬²»´æÔÚ¾Í´´½¨£¡
+			//åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨å°±åˆ›å»ºï¼
 			if(!file.exists()){
 				file.createNewFile();
 			}

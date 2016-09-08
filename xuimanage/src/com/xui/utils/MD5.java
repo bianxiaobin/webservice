@@ -12,7 +12,7 @@ public class MD5 {
 			byte[] digest = md.digest();
 			StringBuilder  builder=new StringBuilder();
 			for(byte b:digest){
-				/**toHexStringÄ¬ÈÏÔÚ×ª»»¹ı³ÌÖĞ½«8½øÖÆµÄ000000011»»Ëã³É16½øÖÆµÄB¹ÊĞèÒªÔÚĞŞ¸ÄÎª0B*/
+				/**toHexStringé»˜è®¤åœ¨è½¬æ¢è¿‡ç¨‹ä¸­å°†8è¿›åˆ¶çš„000000011æ¢ç®—æˆ16è¿›åˆ¶çš„Bæ•…éœ€è¦åœ¨ä¿®æ”¹ä¸º0B*/
 				String str=Integer.toHexString(b&0xFF);
 				if (str.length()==1) {
 					builder.append("0");

@@ -18,12 +18,12 @@ public class Demo02 {
 		File file = new File(path);
 		String nowKey = "";
 		try{
-			//ÅĞ¶Ï¸¸ÎÄ¼ş¼ĞÂ·¾¶ÊÇ·ñ´æÔÚ£¬²»´æÔÚ¾Í´´½¨
+			//åˆ¤æ–­çˆ¶æ–‡ä»¶å¤¹è·¯å¾„æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨å°±åˆ›å»º
 			if(!file.getParentFile().exists()){
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 			}
-			//ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ£¬²»´æÔÚ¾Í´´½¨£¡
+			//åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨å°±åˆ›å»ºï¼
 			if(!file.exists()){
 				file.createNewFile();
 			}

@@ -18,14 +18,14 @@ public class CreateKeyAction extends ActionSupport {
 		int nowYear = cal.get(Calendar.YEAR);
 		String oldKeyPath = configMap.get(ConfigUtil.KEYPATH)+(nowYear-1)+ConfigUtil.KEYFILE;
 		File oldFile = new File(oldKeyPath);
-		//将一年的key删掉
+		//灏嗕竴骞寸殑key鍒犳帀
 		if(oldFile.exists()){
 			oldFile.delete();
 		}
 		String nowKeyPath = configMap.get(ConfigUtil.KEYPATH)+nowYear+ConfigUtil.KEYFILE;
 		File file = new File(nowKeyPath);
 		if(file.exists()){
-			this.addFieldError("errorMessage", "key文件已经存在不需要创建！");
+			this.addFieldError("errorMessage", "key鏂囦欢宸茬粡瀛樺湪涓嶉渶瑕佸垱寤猴紒");
 			return ERROR;
 		}
 		LogUtils.log(file.getPath());

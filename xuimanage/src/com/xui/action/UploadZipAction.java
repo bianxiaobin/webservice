@@ -26,31 +26,31 @@ public class UploadZipAction extends ActionSupport{
 	private static Map<String,String> configMap = Utils.getConfig();
 	@Override
 	public String execute() throws Exception {
-		if(!verifyFile())return ERROR;//¼ì²éÊÇ·ñÂú×ãÉÏ´«Ìõ¼ş
-		 //ÉèÖÃ·şÎñÆ÷ÎÄ¼şÄ¿Â¼ 
+		if(!verifyFile())return ERROR;//æ£€æŸ¥æ˜¯å¦æ»¡è¶³ä¸Šä¼ æ¡ä»¶
+		 //è®¾ç½®æœåŠ¡å™¨æ–‡ä»¶ç›®å½• 
 		String realpath = configMap.get(ConfigUtil.UPLOADPATH)+createRandomDate();
 		File saveFile = new File(realpath,uploadFileFileName);
 		if(!saveFile.getParentFile().exists()){
 			saveFile.mkdir();
 		}
-		//ÉÏ´«ÎÄ¼ş
+		//ä¸Šä¼ æ–‡ä»¶
 		FileUtils.copyFile(uploadFile, saveFile);
-		//½âÑ¹ËõÎÄ¼ş
+		//è§£å‹ç¼©æ–‡ä»¶
 		Utils.uncompressZip(saveFile);
-		//¼ì²é×¨¼­ÊÇ·ñ´æÔÚ,´æÔÚ¾Í±£ÁôÁÙÊ±ÎÄ¼ş£¬²»½øĞĞÊı¾İ¿â²Ù×÷ÓëÎÄ¼ş¸´ÖÆ²Ù×÷
+		//æ£€æŸ¥ä¸“è¾‘æ˜¯å¦å­˜åœ¨,å­˜åœ¨å°±ä¿ç•™ä¸´æ—¶æ–‡ä»¶ï¼Œä¸è¿›è¡Œæ•°æ®åº“æ“ä½œä¸æ–‡ä»¶å¤åˆ¶æ“ä½œ
 		if(AlbumIsExist(uploadFileFileName.substring(0, uploadFileFileName.lastIndexOf(".")),realpath)){
 			return ERROR;
 		}
-		//µÃµ½½âÑ¹ºóµÄÎÄ¼ş
+		//å¾—åˆ°è§£å‹åçš„æ–‡ä»¶
 		String saveFilePath = saveFile.getPath();
 		String afterZipPath = saveFilePath.substring(0, saveFilePath.lastIndexOf("."));  
 		File afterZipFile = new File(afterZipPath);LogUtils.log(afterZipPath);
-		//¿½±´ÎÄ¼şµ½Ö¸¶¨µÄÎÄ¼ş¼ĞÖĞ£¬²¢±£´æµ½Êı¾İ¿â
+		//æ‹·è´æ–‡ä»¶åˆ°æŒ‡å®šçš„æ–‡ä»¶å¤¹ä¸­ï¼Œå¹¶ä¿å­˜åˆ°æ•°æ®åº“
 		List<String> list = Utils.checkAndCopyFile(afterZipFile, configMap.get(ConfigUtil.MUSICPATH), configMap.get(ConfigUtil.LOGOPATH));
-		LogUtils.log("ÉèÖÃÉÏ´«ÎÄ¼şÄ¿Â¼ £¡"+realpath);
+		LogUtils.log("è®¾ç½®ä¸Šä¼ æ–‡ä»¶ç›®å½• ï¼"+realpath);
 		StringBuffer sb = new StringBuffer();
 		for(String s : list){
-			LogUtils.log("¸´ÖÆÎÄ¼şÊ±³öÏÖµÄ´íÎóĞÅÏ¢£º"+s);
+			LogUtils.log("å¤åˆ¶æ–‡ä»¶æ—¶å‡ºç°çš„é”™è¯¯ä¿¡æ¯ï¼š"+s);
 			sb.append(s+"\n");
 		}
 		if(list.size()>0){
@@ -61,26 +61,26 @@ public class UploadZipAction extends ActionSupport{
 	}
 
 	/**
-	 * Ğ£ÑéÎÄ¼ş¸ñÊ½
+	 * æ ¡éªŒæ–‡ä»¶æ ¼å¼
 	 * @return
 	 */
 	private boolean verifyFile(){
 		if(configMap == null){
-			this.addFieldError("errorMessage", "¶ÁÈ¡ÅäÖÃÎÄ¼şÓĞÎó£¡");
+			this.addFieldError("errorMessage", "è¯»å–é…ç½®æ–‡ä»¶æœ‰è¯¯ï¼");
 			return false;
 		}
 		if(uploadFile == null){
-			this.addFieldError("errorMessage", "Ã»ÓĞµÃµ½ÎÄ¼ş£¡");
+			this.addFieldError("errorMessage", "æ²¡æœ‰å¾—åˆ°æ–‡ä»¶ï¼");
 			return false;
 		}
 		if(StringUtils.isEmpty(uploadFileFileName)){
-			this.addFieldError("errorMessage", "Ã»ÓĞ¶ÁÈ¡µ½ÎÄ¼şÄÚÈİ£¡");
+			this.addFieldError("errorMessage", "æ²¡æœ‰è¯»å–åˆ°æ–‡ä»¶å†…å®¹ï¼");
 			return false;
 		}else{
-			//¼ì²éºó×ºÃûÊÇ·ñÎªzip»òrar
+			//æ£€æŸ¥åç¼€åæ˜¯å¦ä¸ºzipæˆ–rar
 			String suffixName = uploadFileFileName.substring(uploadFileFileName.lastIndexOf(".")+1, uploadFileFileName.length());
 			if(!suffixName.equals("zip") && !suffixName.equals("rar")){
-				this.addFieldError("errorMessage", "ÉÏ´«µÄÎÄ¼ş¸ñÊ½²»ÕıÈ·£¬±ØĞëÊÇzipµÄÑ¹ËõÎÄ¼ş");
+				this.addFieldError("errorMessage", "ä¸Šä¼ çš„æ–‡ä»¶æ ¼å¼ä¸æ­£ç¡®ï¼Œå¿…é¡»æ˜¯zipçš„å‹ç¼©æ–‡ä»¶");
 				return false;
 			}
 		}
@@ -88,13 +88,13 @@ public class UploadZipAction extends ActionSupport{
 	}
 	
 	/***
-	 * ¼ì²é×¨¼­ÊÇ·ñ´æÔÚ
+	 * æ£€æŸ¥ä¸“è¾‘æ˜¯å¦å­˜åœ¨
 	 * @param uploadFile
 	 */
 	private boolean AlbumIsExist(String name,String path){
 		int id = new MusicDB().getMusicAlbumCountByName(name);
 		if(id > 0){
-			this.addFieldError("errorMessage", "ÉÏ´«³É¹¦£¬µ«×¨¼­ÒÑ´æÔÚ£¬Ã»ÓĞ½øĞĞÊı¾İ¿â²Ù×÷¡£±£´æÔÚ·şÎñÆ÷µÄÎÄ¼şµØÖ·Îª£¨"+path+"£©");
+			this.addFieldError("errorMessage", "ä¸Šä¼ æˆåŠŸï¼Œä½†ä¸“è¾‘å·²å­˜åœ¨ï¼Œæ²¡æœ‰è¿›è¡Œæ•°æ®åº“æ“ä½œã€‚ä¿å­˜åœ¨æœåŠ¡å™¨çš„æ–‡ä»¶åœ°å€ä¸ºï¼ˆ"+path+"ï¼‰");
 			return true;
 		}
 		return false;

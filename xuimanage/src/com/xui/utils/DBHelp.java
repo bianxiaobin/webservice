@@ -38,7 +38,7 @@ public class DBHelp {
 				throw new Exception();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				System.err.print("sessionÎª¿Õ£¬Çëµ÷ÓÃgetSession½øĞĞ³õÊ¼»¯");;
+				System.err.print("sessionä¸ºç©ºï¼Œè¯·è°ƒç”¨getSessionè¿›è¡Œåˆå§‹åŒ–");;
 			}
 		}
 	}
@@ -50,7 +50,7 @@ public class DBHelp {
 				throw new Exception();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				System.err.print("sessionÒÑ¾­²»´æÔÚÁË£¡");;
+				System.err.print("sessionå·²ç»ä¸å­˜åœ¨äº†ï¼");;
 			}
 		}
 	}
