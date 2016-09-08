@@ -10,4 +10,5 @@ public interface ConfigUtil {
 	String KEY = "xui_key_YYYMMDD";
 	String LOGINNAME = "loginName";
 	String LOGINPWD = "loginPwd";
+	String KEYFILE = "key.properties";
 }

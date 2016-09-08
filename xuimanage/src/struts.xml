@@ -9,12 +9,16 @@
 		<interceptors>
 			<!-- 定义了一个名为loginInterceptor的拦截器,过滤登录Action -->
 			<interceptor name="loginInterceptor" class="com.xui.interceptor.LoginInterceptor" />
+			<interceptor name="indextInterceptor" class="com.xui.interceptor.IndexInterceptor"></interceptor>
 		</interceptors>
 		<global-results>
 			<!-- 定义一个全局的结果集-->
 			<result name="login" type="redirect">/login.jsp</result>
 		</global-results>
 		<action name="loginAction" class="com.xui.action.LoginAction">
+			<!-- 配置拦截器 -->
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="indextInterceptor" />
 			<result name="success">/uploading.html</result>
 			<result name="error">/error.jsp</result>
 		</action>
@@ -22,6 +26,14 @@
 			<!-- 配置拦截器 -->
 			<interceptor-ref name="defaultStack" />
 			<interceptor-ref name="loginInterceptor" />
+			<result name="success">/success.html</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="xui" class="com.xui.action.IndexAction">
+			<result name="success">/login.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="createKey" class="com.xui.action.CreateKeyAction">
 			<result name="success">/success.html</result>
 			<result name="error">/error.jsp</result>
 		</action>

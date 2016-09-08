@@ -15,15 +15,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.xui.utils.ConfigUtil;
 import com.xui.utils.MD5;
 import com.xui.utils.Utils;
 
 public class Demo {
 	public static void main(String[] args) {
-//		read02();
-		String sth = "xuiweb123";
-		System.out.println(MD5.getMD5(sth));
+		String a = "asd";
+		String b = "asd";
+		System.out.println(StringUtils.contains(a, b));
 	}
 	private static String createRandomDate(){
 		StringBuffer sb = new StringBuffer();

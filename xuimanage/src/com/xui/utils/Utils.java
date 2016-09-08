@@ -12,12 +12,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.xui.db.MusicDB;
 
@@ -192,26 +194,51 @@ public class Utils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*try {
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
-			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(copyFile));
-			byte[] bytes = new byte[2048];
-			while(in.read(bytes) >= 0 ){
-				out.write(bytes, 0, bytes.length);
-			}
-			out.flush();
-			in.close();
-			out.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 	
 	public static String getKey(String path,String nowDate){
 		File file = new File(path);
-		Map<String,String> keyMap = new HashMap<String,String>();
 		String nowKey = "";
+		try{
+			//判断父文件夹路径是否存在，不存在就创建
+			if(!file.getParentFile().exists()){
+				file.getParentFile().mkdirs();
+				file.createNewFile();
+			}
+			//判断文件是否存在，不存在就创建！
+			if(!file.exists()){
+				LogUtils.log(file.getName()+"文件不存在！请先执行createKey.action");
+				return nowKey;
+			}
+		}catch(IOException ex){
+			ex.printStackTrace();
+		}
+		try {
+			//先从文件中读
+			InputStream is = new FileInputStream(file);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "GBK"));
+			String line = "";
+			while((line = reader.readLine())!=null){
+				if(!line.equals("")){
+					String[] keys = line.split("=");
+					if(keys == null || keys.length < 2){
+						continue;
+					}else{
+						if(keys[0].equals(nowDate)){
+							nowKey = keys[1];
+							break;
+						}
+					}
+				}
+			}
+			reader.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nowKey;
+	}
+	public static void createYearKey(File file){
 		try{
 			//判断父文件夹路径是否存在，不存在就创建
 			if(!file.getParentFile().exists()){
@@ -225,50 +252,33 @@ public class Utils {
 		}catch(IOException ex){
 			ex.printStackTrace();
 		}
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
 		try {
-			//先从文件中读
-			InputStream is = new FileInputStream(file);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "GBK"));
-			String line = "";
-			while((line = reader.readLine())!=null){
-				if(!line.equals("")){
-					String[] keys = line.split("=");
-					keyMap.put(keys[0], keys[1]);
+			PrintWriter writer = new PrintWriter(new FileWriter(file,true));
+			for (int i = 1; i <= 12; i++) {
+				String month = "";
+				month = i < 10?("0"+i):i+"";
+				int day = 0;
+				if(i==1 || i==3 || i==5 || i==7 || i==8 || i==10 || i==12){
+					day = 31;
+				}else if(i==2){
+					day = 28;
+				}else{
+					day = 30;
+				}
+				for (int j = 1; j <= day; j++) {
+					String monthday = "";
+					monthday = j < 10?("0"+j):j+""; 
+					String md = MD5.getMD5(year+month+monthday+ConfigUtil.KEY);
+					writer.println(year+month+monthday+"="+md);
 				}
 			}
-			//查看key在map中是否存在，不存在就创建
-			if(keyMap.containsKey(nowDate)){
-				nowKey = keyMap.get(nowDate);
-			}else{
-				nowKey = createKey(file,nowDate);
-			}
-			reader.close();
+			writer.flush();
+			writer.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return nowKey;
 	}
-	private static String createKey(File file,String nowDate){
-		String value = "";
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(new FileWriter(file));
-			value = MD5.getMD5(nowDate+ConfigUtil.KEY);
-			writer.println(nowDate+"="+value);
-			writer.flush();
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return value;
-	}
-
-
-
-	public static void main(String[] args) {
-//		Utils.checkFile();
-	}
-
 }
