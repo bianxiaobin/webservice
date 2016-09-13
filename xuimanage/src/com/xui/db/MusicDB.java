@@ -73,8 +73,19 @@ public class MusicDB {
 	public int getMusicAlbumCountByName(String name){
 		int id = -1;
 		String mapper = "com.xui.bean.mapper.musicAlbumMapper.getMusicAlbumCountByName";
-		id = session.selectOne(mapper,name);
+		try{
+			id = session.selectOne(mapper,name);
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return -1;
+		}
 		return id;
+	}
+	
+	public static void main(String[] args) {
+		MusicDB db = new MusicDB();
+		int id = db.getMusicAlbumCountByName("ying");
+		System.out.println(id);
 	}
 }
 

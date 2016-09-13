@@ -11,24 +11,23 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.xui.utils.ConfigUtil;
 import com.xui.utils.LogUtils;
+import com.xui.utils.MD5;
 import com.xui.utils.Utils;
 
 public class IndexAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String key;
 	private String mdKey;
-	private static Map<String,String> configMap = Utils.getConfig();
 	public IndexAction() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String nowDate = sdf.format(new Date());
-		Calendar cal = Calendar.getInstance();
-		int nowYear = cal.get(Calendar.YEAR);
-		String keyPath = configMap.get(ConfigUtil.KEYPATH)+nowYear+ConfigUtil.KEYFILE;
-		mdKey = Utils.getKey(keyPath, nowDate);//从配置文件中获得的key
-		LogUtils.log("key:"+key);
+		mdKey = MD5.getMD5(nowDate+ConfigUtil.KEY);
+		LogUtils.log("day:"+nowDate);
 	}
 	@Override
 	public String execute() throws Exception {
+		LogUtils.log("key:"+key);
+		LogUtils.log("nowKey:"+mdKey);
 		if(StringUtils.isEmpty(key)){
 			this.addFieldError("errorMessage", "这里什么都没有(⊙o⊙)哦！");
 			return ERROR;

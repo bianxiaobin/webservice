@@ -7,7 +7,7 @@
 			<!-- 配置数据库连接信息 -->
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://192.168.230.200:3306/xuidb?useUnicode=true&amp;characterEncoding=utf-8" />
+				<property name="url" value="jdbc:mysql://10.252.44.123:1234/xuidb?useUnicode=true&amp;characterEncoding=utf-8" />
 				<property name="username" value="xuims" />
 				<property name="password" value="0x1u2i3456" />
 				

@@ -27,7 +27,7 @@ public class UploadZipAction extends ActionSupport{
 	@Override
 	public String execute() throws Exception {
 		if(!verifyFile())return ERROR;//检查是否满足上传条件
-		 //设置服务器文件目录 
+		//设置服务器文件目录 
 		String realpath = configMap.get(ConfigUtil.UPLOADPATH)+createRandomDate();
 		File saveFile = new File(realpath,uploadFileFileName);
 		if(!saveFile.getParentFile().exists()){
@@ -35,12 +35,12 @@ public class UploadZipAction extends ActionSupport{
 		}
 		//上传文件
 		FileUtils.copyFile(uploadFile, saveFile);
-		//解压缩文件
-		Utils.uncompressZip(saveFile);
 		//检查专辑是否存在,存在就保留临时文件，不进行数据库操作与文件复制操作
 		if(AlbumIsExist(uploadFileFileName.substring(0, uploadFileFileName.lastIndexOf(".")),realpath)){
 			return ERROR;
 		}
+		//解压缩文件
+		Utils.uncompressZip(saveFile);
 		//得到解压后的文件
 		String saveFilePath = saveFile.getPath();
 		String afterZipPath = saveFilePath.substring(0, saveFilePath.lastIndexOf("."));  
@@ -86,13 +86,17 @@ public class UploadZipAction extends ActionSupport{
 		}
 		return true;
 	}
-	
+
 	/***
 	 * 检查专辑是否存在
 	 * @param uploadFile
 	 */
 	private boolean AlbumIsExist(String name,String path){
 		int id = new MusicDB().getMusicAlbumCountByName(name);
+		if(id==-1){
+			this.addFieldError("errorMessage", "数据库异常");
+			return true;
+		}
 		if(id > 0){
 			this.addFieldError("errorMessage", "上传成功，但专辑已存在，没有进行数据库操作。保存在服务器的文件地址为（"+path+"）");
 			return true;

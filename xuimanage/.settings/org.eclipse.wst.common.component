@@ -2,7 +2,7 @@
     <wb-module deploy-name="xuimanage">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="xuimanage"/>
         <property name="java-output-path" value="/xuimanage/build/classes"/>
+        <property name="context-root" value="xuimanage"/>
     </wb-module>
 </project-modules>

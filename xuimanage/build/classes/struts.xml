@@ -5,6 +5,7 @@
 <struts>
 	<constant name="struts.multipart.maxSize" value="100000000" /><!-- 
 		配置上传文件的拦截大小 -->
+	<!-- <constant name="struts.action.extension" value="do,action" /> -->
 	<package name="default" namespace="/" extends="struts-default">
 		<interceptors>
 			<!-- 定义了一个名为loginInterceptor的拦截器,过滤登录Action -->
@@ -12,7 +13,7 @@
 			<interceptor name="indextInterceptor" class="com.xui.interceptor.IndexInterceptor"></interceptor>
 		</interceptors>
 		<global-results>
-			<!-- 定义一个全局的结果集-->
+			<!-- 定义一个全局的结果集 -->
 			<result name="login" type="redirect">/login.jsp</result>
 		</global-results>
 		<action name="loginAction" class="com.xui.action.LoginAction">
