@@ -10,22 +10,26 @@
 		<interceptors>
 			<!-- 定义了一个名为loginInterceptor的拦截器,过滤登录Action -->
 			<interceptor name="loginInterceptor" class="com.xui.interceptor.LoginInterceptor" />
-			<interceptor name="indextInterceptor" class="com.xui.interceptor.IndexInterceptor"></interceptor>
+			<interceptor name="noKeyInterceptor" class="com.xui.interceptor.KeyInterceptor"></interceptor>
 		</interceptors>
 		<global-results>
 			<!-- 定义一个全局的结果集 -->
+			<!-- 当用户名不正确时，跳转此页面 -->
 			<result name="login" type="redirect">/login.jsp</result>
+			<!-- 当key不正确时跳转此页面 -->
+			<result name="noKey" type="redirect">xui.action?key=</result>
 		</global-results>
 		<action name="loginAction" class="com.xui.action.LoginAction">
 			<!-- 配置拦截器 -->
 			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="indextInterceptor" />
+			<interceptor-ref name="noKeyInterceptor" />
 			<result name="success">/uploading.html</result>
 			<result name="error">/error.jsp</result>
 		</action>
 		<action name="uploadFileAction" class="com.xui.action.UploadZipAction">
 			<!-- 配置拦截器 -->
 			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="noKeyInterceptor" />
 			<interceptor-ref name="loginInterceptor" />
 			<result name="success">/success.html</result>
 			<result name="error">/error.jsp</result>

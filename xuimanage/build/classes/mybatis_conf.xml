@@ -7,13 +7,15 @@
 			<!-- 配置数据库连接信息 -->
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://10.252.44.123:1234/xuidb?useUnicode=true&amp;characterEncoding=utf-8" />
-				<property name="username" value="xuims" />
-				<property name="password" value="0x1u2i3456" />
 				
-				<!-- <property name="url" value="jdbc:mysql://localhost:3306/demodb?useUnicode=true&amp;characterEncoding=utf-8" />
+				<!-- 在自动打包部署时，由于需要动态的改变数据库连接地址，方便在jenkins参数配置中，这里将ip与端口参数化ip:port/db -->
+				<property name="url" value="jdbc:mysql://ip:port/db?useUnicode=true&amp;characterEncoding=utf-8" />
+				<property name="username" value="xuims" />
+				<property name="password" value="0x1u2i3456" /> 
+				
+				<!--<property name="url" value="jdbc:mysql://localhost:3306/demodb?useUnicode=true&amp;characterEncoding=utf-8" />
 				<property name="username" value="root" />
-				<property name="password" value="admin" /> -->
+				<property name="password" value="admin" />-->
 			</dataSource>
 		</environment>
 	</environments>

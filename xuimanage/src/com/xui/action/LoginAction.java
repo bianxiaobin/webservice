@@ -22,6 +22,7 @@ public class LoginAction extends ActionSupport {
 	private static Map<String,String> configMap = Utils.getConfig();
 	@Override
 	public String execute() throws Exception {
+		System.out.println("进入了Action类");
 		name = configMap.get(ConfigUtil.LOGINNAME);
 		pwd = configMap.get(ConfigUtil.LOGINPWD);
 		if(StringUtils.isEmpty(loginName)){

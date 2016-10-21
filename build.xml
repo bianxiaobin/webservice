@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 定义一个工程，默认任务为warFile。 -->  
+<project name="xuimanage" default="warFile" basedir="./xuimanage">  
+      
+    <!-- 定义属性，打成war包的名称。在jenkins中暂时配置了，先注释了
+    <property name="warFileName" value="xuimanage.war"></property>  -->   
+      
+    <!-- 定义路径，编译java文件时用到的jar包。 如果注释，编译时会找不到类-->  
+    <path id="project.lib">  
+        <fileset dir="${basedir}/WebContent/WEB-INF/lib"> <!--回去找项目下的lib文件夹中的jar--> 
+            <include name="*.jar"/>  
+        </fileset>  
+    </path>  
+      
+    <!-- 定义任务，清空任务：清空原有的class文件，创建新的build路径。 -->  
+    <target name="clean">  
+        <delete dir="${basedir}/build" />  
+        <mkdir dir="${basedir}/build" />  
+    </target>  
+      
+	<!-- 修改application节点的android:name属性-->
+	<replace file="${basedir}/src/mybatis_conf.xml" 
+	 	token="jdbc:mysql://10.252.44.123:1234/xuidb?useUnicode=true&amp;characterEncoding=utf-8"     
+	 	value="jdbc:mysql://localhost:3306/demodb?useUnicode=true&amp;characterEncoding=utf-8"/>
+	 
+    <!-- 定义任务，编译src文件夹中的java文件，编译后的class文件放到创建的文件夹下。 -->  
+    <target name="compile" depends="clean">  
+        <javac srcdir="${basedir}/src" destdir="${basedir}/build" includeantruntime="false" encoding="utf-8">  
+            <classpath refid="project.lib">  
+            </classpath>  
+        </javac>  
+		<!--奖src下的配置文件copy到build下-->
+		<copy todir="${basedir}/build">
+			<fileset dir="${basedir}/src">
+				<include name="**.*" /> 
+				<exclude name="*.java"/>
+			</fileset>   
+		</copy>	
+		<copy todir="${basedir}/build/com/xui/bean/mapper">
+			<fileset dir="${basedir}/src/com/xui/bean/mapper">
+				<include name="**.*" /> 
+				<exclude name="*.java"/>
+			</fileset>   
+		</copy>	
+    </target>  
+      
+    <!-- 定义默认任务，将class文件集合成jar包。 -->  
+    <target name="warFile" depends="compile">  
+        <!-- 删除原有war包。 -->  
+        <delete dir="${basedir}/${warFileName}" />  
+        <!-- 建立新war包。 -->  
+        <war destfile="${basedir}/${warFileName}" webxml="${basedir}/WebContent/WEB-INF/web.xml">  
+            <!-- 将非jar和非class文件拷贝到war包的对应路径下。 -->  
+            <fileset dir="${basedir}/WebContent">  
+                <include name="**/**.*" />  
+                <exclude name="**/*.jar"/>  
+                <exclude name="**/*.class"/>  
+            </fileset>  
+            <!-- 将jar和class文件拷贝到war包的对应路径下。 -->  
+            <lib dir="${basedir}/WebContent/WEB-INF/lib" />  
+            <classes dir="${basedir}/build" />  
+        </war>  
+    </target>  
+      
+</project>  
