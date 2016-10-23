@@ -2,8 +2,12 @@
 <!-- 定义一个工程，默认任务为warFile。 -->  
 <project name="xuimanage" default="warFile" basedir="./xuimanage">  
       
-    <!-- 定义属性，打成war包的名称。在jenkins中暂时配置了，先注释了
-    <property name="warFileName" value="xuimanage.war"></property>  -->   
+    <!-- 定义属性，打成war包的名称。在jenkins中暂时配置了，先注释了--> 
+    <property name="warFileName" value="xuimanage.war"/>   
+	<!--定义属性，配置数据库连接地址
+	<property name="DBURL" value="10.252.44.123:1234/xuidb"/>-->
+	<!--数据库配置文件中需要替换的参数变量-->
+	<property name="ipPortArguments" value="ip:port/db"/>
       
     <!-- 定义路径，编译java文件时用到的jar包。 如果注释，编译时会找不到类-->  
     <path id="project.lib">  
@@ -18,10 +22,13 @@
         <mkdir dir="${basedir}/build" />  
     </target>  
       
-	<!-- 修改application节点的android:name属性-->
-	<replace file="${basedir}/src/mybatis_conf.xml" 
-	 	token="jdbc:mysql://10.252.44.123:1234/xuidb?useUnicode=true&amp;characterEncoding=utf-8"     
-	 	value="jdbc:mysql://localhost:3306/demodb?useUnicode=true&amp;characterEncoding=utf-8"/>
+	<!-- 替换掉数据库连接属性（在开发预发布时候要指定的定义一个变量，方便替换,下面的代码是替换的src）
+	<replace file="${basedir}/src/mybatis_conf.xml">
+		<replacefilter>
+			<replacetoken>SQLDBURL</replacetoken>
+			<replacevalue>jdbc:mysql://10.252.44.123:1234/xuidb?useUnicode=true&amp;characterEncoding=utf-8</replacevalue>
+		</replacefilter>
+	</replace>-->
 	 
     <!-- 定义任务，编译src文件夹中的java文件，编译后的class文件放到创建的文件夹下。 -->  
     <target name="compile" depends="clean">  
@@ -36,6 +43,8 @@
 				<exclude name="*.java"/>
 			</fileset>   
 		</copy>	
+		<!--替换需要编译到war中的build文件夹中的数据库配置文件-->
+		<replace file="${basedir}/build/mybatis_conf.xml" token="${ipPortArguments}" value="${DBURL}"/>
 		<copy todir="${basedir}/build/com/xui/bean/mapper">
 			<fileset dir="${basedir}/src/com/xui/bean/mapper">
 				<include name="**.*" /> 
@@ -43,7 +52,8 @@
 			</fileset>   
 		</copy>	
     </target>  
-      
+	
+	
     <!-- 定义默认任务，将class文件集合成jar包。 -->  
     <target name="warFile" depends="compile">  
         <!-- 删除原有war包。 -->  
