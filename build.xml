@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 定义一个工程，默认任务为warFile。 -->  
+<!-- 定义一个工程，默认任务为warFile。 基本路径是当前目录下的xuimanage文件夹-->  
 <project name="xuimanage" default="warFile" basedir="./xuimanage">  
       
     <!-- 定义属性，打成war包的名称。在jenkins中暂时配置了，先注释了--> 
