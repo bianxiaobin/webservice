@@ -8,6 +8,8 @@
 	<property name="DBURL" value="10.252.44.123:1234/xuidb"/>-->
 	<!--数据库配置文件中需要替换的参数变量-->
 	<property name="ipPortArguments" value="ip:port/db"/>
+	<property name="dbUserNameArguments" value="dbUsername"/>
+	<property name="dbPasswordArguments" value="dbPassword"/>
       
     <!-- 定义路径，编译java文件时用到的jar包。 如果注释，编译时会找不到类-->  
     <path id="project.lib">  
@@ -21,14 +23,6 @@
         <delete dir="${basedir}/build" />  
         <mkdir dir="${basedir}/build" />  
     </target>  
-      
-	<!-- 替换掉数据库连接属性（在开发预发布时候要指定的定义一个变量，方便替换,下面的代码是替换的src）
-	<replace file="${basedir}/src/mybatis_conf.xml">
-		<replacefilter>
-			<replacetoken>SQLDBURL</replacetoken>
-			<replacevalue>jdbc:mysql://10.252.44.123:1234/xuidb?useUnicode=true&amp;characterEncoding=utf-8</replacevalue>
-		</replacefilter>
-	</replace>-->
 	 
     <!-- 定义任务，编译src文件夹中的java文件，编译后的class文件放到创建的文件夹下。 -->  
     <target name="compile" depends="clean">  
@@ -45,6 +39,9 @@
 		</copy>	
 		<!--替换需要编译到war中的build文件夹中的数据库配置文件-->
 		<replace file="${basedir}/build/mybatis_conf.xml" token="${ipPortArguments}" value="${DBURL}"/>
+		<replace file="${basedir}/build/mybatis_conf.xml" token="${dbUserNameArguments}" value="${DBUsername}"/>
+		<replace file="${basedir}/build/mybatis_conf.xml" token="${dbPasswordArguments}" value="${DBPassword}"/>		
+		
 		<copy todir="${basedir}/build/com/xui/bean/mapper">
 			<fileset dir="${basedir}/src/com/xui/bean/mapper">
 				<include name="**.*" /> 

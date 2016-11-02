@@ -10,8 +10,8 @@
 				
 				<!-- 在自动打包部署时，由于需要动态的改变数据库连接地址，方便在jenkins参数配置中，这里将ip与端口参数化ip:port/db -->
 				<property name="url" value="jdbc:mysql://ip:port/db?useUnicode=true&amp;characterEncoding=utf-8" />
-				<property name="username" value="xuims" />
-				<property name="password" value="0x1u2i3456" /> 
+				<property name="username" value="dbUsername" />
+				<property name="password" value="dbPassword" /> 
 				
 				<!--<property name="url" value="jdbc:mysql://localhost:3306/demodb?useUnicode=true&amp;characterEncoding=utf-8" />
 				<property name="username" value="root" />
