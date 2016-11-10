@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+<link rel="stylesheet" type="text/css"
+	href="jquery/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="jquery/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="jquery/demo.css">
+<script type="text/javascript" src="jquery/jquery.min.js"></script>
+<script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Basic ProgressBar</h2>
+	<p>Click the button below to show progress information.</p>
+	<div style="margin: 20px 0;">
+		<a href="#" class="easyui-linkbutton" onclick="start()">Start</a>
+	</div>
+	<div id="p" class="easyui-progressbar" data-options="value:20.3"
+		style="width: 400px;"></div>
+	<script>
+		function start(){
+			v();
+			/*  var value = $('#p').progressbar('getValue');
+			if (value < 100){
+				alert(value);
+				value += Math.floor(Math.random() * 10);
+				$('#p').progressbar('setValue', value);
+				setTimeout(arguments.callee, 200);
+			}*/
+		};
+		function v(){
+			$.ajax({
+				type:"post",
+				url:"passValue.action",
+				dataType:"json",
+				success:function(data){
+					var value = eval(data);
+					alert(value.success);
+				},
+				error:function(){
+					
+				}
+			});
+		}
+	</script>
+</body>
+</html>

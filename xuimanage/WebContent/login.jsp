@@ -36,5 +36,7 @@
 	    	<input type="submit" value="登录"/><br><br><br><br>
 	    </form>
 	</div>
+	</br>
+	<a href="pro.html">去看看进度条</a>
 </body>
 </html>
