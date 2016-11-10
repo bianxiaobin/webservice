@@ -29,7 +29,7 @@ public class IndexAction extends ActionSupport {
 		LogUtils.log("key:"+key);
 		LogUtils.log("nowKey:"+mdKey);
 		if(StringUtils.isEmpty(key)){
-			this.addFieldError("errorMessage", "这里什么都没有(⊙o⊙)哦！");
+			this.addFieldError("errorMessage", "测试一。。。。。\n这里什么都没有(⊙o⊙)哦！");
 			return ERROR;
 		}
 		if(key.equals(mdKey)){
